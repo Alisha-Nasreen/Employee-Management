@@ -1,26 +1,33 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+class Employee {
+    private String name;
+    private double salary;
 
-class Employee 
-{
-    String name;
-    double salary;
-
-
-    Employee(String name, double salary)  
-    {this.name = name;
+    
+    public Employee(String name, double salary) {
+        this.name = name;
         this.salary = salary;
     }
 
     
-    void display() {
+    public String getName() {
+        return name;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    
+    public void display() {
         System.out.println("Name: " + name + ", Salary: " + salary);
     }
 }
 
-
-public class EmpManager {
+// Main class
+public class EmployeeData {
     public static void main(String[] args) {
         
         ArrayList<Employee> employees = new ArrayList<>();
@@ -32,17 +39,23 @@ public class EmpManager {
         employees.add(new Employee("Zara", 55000));
 
         
-        System.out.println("Employees List:");
+        System.out.println("\nEmployees List:");
         for (Employee emp : employees) {
             emp.display();
         }
 
         
-        System.out.println("\nEnter employee name to remove:");
+        System.out.print("\nEnter employee name to remove: ");
         String removeName = scanner.nextLine();
 
+        boolean removed = employees.removeIf(emp -> emp.getName().equalsIgnoreCase(removeName));
+
         
-        employees.removeIf(emp -> emp.name.equalsIgnoreCase(removeName));
+        if (removed) {
+            System.out.println("\nEmployee removed successfully!");
+        } else {
+            System.out.println("\nEmployee not found!");
+        }
 
         
         System.out.println("\nUpdated Employees List:");
@@ -50,6 +63,7 @@ public class EmpManager {
             emp.display();
         }
 
+        
         scanner.close();
     }
 }
